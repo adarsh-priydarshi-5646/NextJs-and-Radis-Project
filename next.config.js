@@ -1,6 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Removing 'output: export' to allow server-side features like Redis
+  reactStrictMode: true,
+  swcMinify: true,
+  experimental: {
+    serverActions: true,
+  },
+  webpack: (config) => {
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+    };
+    return config;
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },

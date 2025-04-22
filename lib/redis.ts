@@ -20,14 +20,12 @@ export async function getRedisClient(): Promise<Redis> {
   connectionPromise = new Promise(async (resolve, reject) => {
     try {
       const redisUrl = process.env.REDIS_URL;
-      const redisToken = process.env.REDIS_TOKEN;
 
-      if (!redisUrl || !redisToken) {
-        throw new Error('Redis URL and Token are required');
+      if (!redisUrl) {
+        throw new Error('Redis URL is required');
       }
 
       redis = new Redis(redisUrl, {
-        password: redisToken,
         tls: {
           rejectUnauthorized: false
         },
